@@ -1,0 +1,33 @@
+
+
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-container
+
+    environment:
+      POSTGRES_DB: contract_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    container_name: redis-container
+
+    ports:
+      - "6379:6379"
+
+  backend:
+    build: ./backend
+    container_name: backend-container
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+      - redis
