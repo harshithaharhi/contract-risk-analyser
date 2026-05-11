@@ -3,11 +3,14 @@ package com.internship.tool.controller;
 import com.internship.tool.entity.Contract;
 import com.internship.tool.exception.ContractNotFoundException;
 import com.internship.tool.service.ContractService;
+
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +20,7 @@ public class ContractController {
     @Autowired
     private ContractService contractService;
 
+    @PreAuthorize("permitAll()")
     @PostMapping("/create")
     public ResponseEntity<Contract> createContract(@Valid @RequestBody Contract contract) {
 
@@ -25,6 +29,7 @@ public class ContractController {
         return new ResponseEntity<>(savedContract, HttpStatus.CREATED);
     }
 
+    @PreAuthorize("permitAll()")
     @GetMapping("/all")
     public ResponseEntity<Page<Contract>> getAllContracts(
             @RequestParam(defaultValue = "0") int page,

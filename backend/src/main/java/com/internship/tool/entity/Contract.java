@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "contracts")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Contract {
+public class Contract implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
