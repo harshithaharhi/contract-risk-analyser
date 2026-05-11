@@ -2,10 +2,14 @@ package com.internship.tool.service;
 
 import com.internship.tool.entity.Contract;
 import com.internship.tool.exception.ContractNotFoundException;
-import com.internship.tool.repository.ContractRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.internship.tool.exception.InvalidContractException;
+import com.internship.tool.repository.ContractRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -30,6 +34,13 @@ public class ContractService {
 
     public List<Contract> getAllContracts() {
         return contractRepository.findAll();
+    }
+
+    public Page<Contract> getAllContractsPaginated(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        return contractRepository.findAll(pageable);
     }
 
     public Contract getContractById(Long id) {
