@@ -105,4 +105,14 @@ public class ContractServiceTest {
         assertEquals(1,
                 contractService.getContractsByVendor("Infosys").size());
     }
+
+    @Test
+    void testInvalidContractValue() {
+
+        contract.setContractValue(-100.0);
+
+        assertThrows(RuntimeException.class, () -> {
+            contractService.createContract(contract);
+        });
+    }
 }

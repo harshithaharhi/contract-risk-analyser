@@ -32,6 +32,10 @@ public class ContractService {
             throw new InvalidContractException("Vendor name is required");
         }
 
+        if (contract.getContractValue() == null || contract.getContractValue() <= 0) {
+            throw new InvalidContractException("Contract value must be greater than zero");
+        }
+
         return contractRepository.save(contract);
     }
 
